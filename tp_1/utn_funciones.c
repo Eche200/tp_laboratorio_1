@@ -12,8 +12,8 @@ void utn_showMenu(){
     int resultadoDeLaResta;
     int resultadoDeLaDivision;
     int resultadoDeLaMultiplicacion;
-    int resultadoDelFactorialPrimerOperador;
-    int resultadoDelFactorialSegundoOperador;
+    long resultadoDelFactorialPrimerOperador;
+    long resultadoDelFactorialSegundoOperador;
 
     //intro del menu
     if(utn_getNumero(&numeroDeOpcionIngresado,
@@ -28,6 +28,11 @@ void utn_showMenu(){
                                 utn_getNumero(&operadorNumeroDos,"Ingrese el 2° operador","Error,ingrese un numero correcto",0,999,3);
                                 break;
                             case 3:
+                                utn_calcularSuma(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaSuma);
+                                utn_calcularResta(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaResta);
+                                utn_calcularDivision(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaDivision);
+                                utn_calcularMultiplicacion(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaMultiplicacion);
+                                utn_calcularFactorial(&operadorNumeroUno,&operadorNumeroDos,&resultadoDelFactorialPrimerOperador,&resultadoDelFactorialSegundoOperador);
                                 break;
                             case 4:
                                 break;
@@ -92,36 +97,69 @@ int utn_getNumero(int* pResultado,char* mensaje,char* mensajeError,int minimo,in
 
 
 
-int calcularSuma(int* pOperadorUno, int* pOperadorDos, int* pResultadoSuma ){
+
+int utn_calcularSuma(int* pOperadorUno, int* pOperadorDos, int* pResultadoSuma ){
     int retorno=0;
-    *pResultadoSuma=pOperadorUno+pOperadorDos;
+    *pResultadoSuma=*pOperadorUno+*pOperadorDos;
     return retorno;
 }
 
-int calcularResta(int* pOperadorUno, int* pOperadorDos, int* pResultadoResta ){
+
+int utn_calcularResta(int* pOperadorUno, int* pOperadorDos, int* pResultadoResta ){
     int retorno=0;
-    *pResultadoResta=pOperadorUno+pOperadorDos;
+    *pResultadoResta=*pOperadorUno-*pOperadorDos;
     return retorno;
 }
 
-int calcularDivision(int* pOperadorUno, int* pOperadorDos, int* pResultadoDivision ){
+
+int utn_calcularDivision(int* pOperadorUno, int* pOperadorDos, int* pResultadoDivision ){
     int retorno=-1;
     if(pOperadorDos>0){
-        *pResultadoDivision=pOperadorUno+pOperadorDos;
+        *pResultadoDivision=*pOperadorUno / *pOperadorDos;
         retorno=0;
     }
     return retorno;
 }
 
-int calcularMultiplicacion(int* pOperadorUno, int* pOperadorDos, int* pResultadoMultiplicacion ){
+
+int utn_calcularMultiplicacion(int* pOperadorUno, int* pOperadorDos, int* pResultadoMultiplicacion ){
     int retorno=0;
-    *pResultadoMultiplicacion=pOperadorUno+pOperadorDos;
+    *pResultadoMultiplicacion=*pOperadorUno * *pOperadorDos;
     return retorno;
 }
 
-int calcularFactorial(int* pOperadorUno,int* pOperadorDos,int* pResultadoFactorialPrimerOperador, int* pResultadoFactorialPrimerOperador ){
-    int retorno=-1;
 
-
+int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFactorialPrimerOperador, long* pResultadoFactorialSegundoOperador ){
+    int retorno=0;
+    long auxParaResultadoFactorial=1;
+    if(pOperadorUno>0){
+        for(int i=pOperadorUno;i>=1;i--){
+            auxParaResultadoFactorial=auxParaResultadoFactorial*i;
+            if(i==1){
+                *pResultadoFactorialPrimerOperador=auxParaResultadoFactorial;
+                auxParaResultadoFactorial=1;
+            }
+        }
+    }
+    if(pOperadorDos>0){
+        for(int i=pOperadorDos;i>=1;i--){
+            auxParaResultadoFactorial=auxParaResultadoFactorial*i;
+            if(i==1){
+                *pResultadoFactorialSegundoOperador=auxParaResultadoFactorial;
+            }
+        }
+    }
     return retorno;
+}
+int listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDeLaSuma  , int* pResultadoDeLaResta, int* pResultadoDeLaDivision,int* pResultadoDeLaMultiplicacion,
+                     long* pResultadoDelFactorialPrimerOperador ,long* pResultadoDelFactorialSegundoOperador){
+
+                     printf("el resultado de la suma de %d + %d , es igual a %d",pOperadorUno,pOperadorDos,pResultadoDeLaSuma);
+                     printf("el resultado de la suma de %d + %d , es igual a %d",pOperadorUno,pOperadorDos,pResultadoDeLaSuma);
+                     printf("el resultado de la suma de %d + %d , es igual a %d",pOperadorUno,pOperadorDos,pResultadoDeLaSuma);
+                     printf("el resultado de la suma de %d + %d , es igual a %d",pOperadorUno,pOperadorDos,pResultadoDeLaSuma);
+
+
+
+                     return 0;
 }
