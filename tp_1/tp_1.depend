@@ -1,9 +1,12 @@
 # depslib dependency file v1.0
-1535719193 source:c:\tp_laboratorio_1\tp_1\main.c
+1535730003 source:c:\tp_laboratorio_1\tp_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utn_funciones.h"
+
+1535730026 source:c:\tp_laboratorio_1\tp_1\utn_funciones.c
 	<stdio.h>
 	<stdlib.h>
 
-1535726319 source:c:\tp_laboratorio_1\tp_1\utn_funciones.c
-	<stdio.h>
-	<stdlib.h>
+1535729049 c:\tp_laboratorio_1\tp_1\utn_funciones.h
 
