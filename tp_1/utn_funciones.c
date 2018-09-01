@@ -47,26 +47,37 @@ int utn_getNumero(int* pResultado,char* mensaje,char* mensajeError,int minimo,in
     }while(reintentos>0);
     return retorno;
 }
-
-
-
-
-
-
+/**
+*\brief le paso por parametro dos operadores (previamente evaluados que sean correctos) y hace una suma de ellos.
+*\param pOperadorUno, es el primer numero el cual al final se sumara con el otro numero.
+*\param pOperadorDos, es el segundo numero el cual al final se sumara con el otro numero.
+*\param pResultadoSuma , es la variable donde se guardara el resultado de la suma final.
+*\return retorna 0 si esta todo bien.
+*/
 int utn_calcularSuma(int* pOperadorUno, int* pOperadorDos, int* pResultadoSuma ){
     int retorno=0;
     *pResultadoSuma=(*pOperadorUno)+(*pOperadorDos);
     return retorno;
 }
-
-
+/**
+*\brief le paso por parametro dos operadores (previamente evaluados que sean correctos) y hace una resta de ellos.
+*\param pOperadorUno, es el primer numero el cual al final se restara con el otro numero.
+*\param pOperadorDos, es el segundo numero el cual al final se restara con el otro numero.
+*\param pResultadoResta , es la variable donde se guardara el resultado de la resta final.
+*\return retorna 0 si esta todo bien.
+*/
 int utn_calcularResta(int* pOperadorUno, int* pOperadorDos, int* pResultadoResta ){
     int retorno=0;
     *pResultadoResta=(*pOperadorUno)-(*pOperadorDos);
     return retorno;
 }
-
-
+/**
+*\brief le paso por parametro dos operadores (previamente evaluados que sean correctos) y hace una division de ellos si es que se puede realizar la division.
+*\param pOperadorUno, es el primer numero el cual al final se dividira con el otro numero.
+*\param pOperadorDos, es el segundo numero el cual al final se dividira con el otro numero.
+*\param pResultadoDivision , es la variable donde se guardara el resultado de la division final.
+*\return retorna 0 si esta todo bien , si retorna -1 es porque el segundo operador es 0.
+*/
 int utn_calcularDivision(int* pOperadorUno, int* pOperadorDos, int* pResultadoDivision ){
     int retorno=-1;
     if(pOperadorDos!=0){
@@ -75,15 +86,27 @@ int utn_calcularDivision(int* pOperadorUno, int* pOperadorDos, int* pResultadoDi
     }
     return retorno;
 }
-
-
+/**
+*\brief le paso por parametro dos operadores (previamente evaluados que sean correctos) y hace una multiplicacion de ellos.
+*\param pOperadorUno, es el primer numero el cual al final se multiplicara con el otro numero.
+*\param pOperadorDos, es el segundo numero el cual al final se multiplicara con el otro numero.
+*\param pResultadoMultiplicacion , es la variable donde se guardara el resultado de la multiplicacion final.
+*\return retorna 0 si esta todo bien.
+*/
 int utn_calcularMultiplicacion(int* pOperadorUno, int* pOperadorDos, int* pResultadoMultiplicacion ){
     int retorno=0;
     *pResultadoMultiplicacion=(*pOperadorUno) * (*pOperadorDos);
     return retorno;
 }
-
-
+/**
+*\brief le paso por parametro dos operadores (previamente evaluados que sean correctos) y hace el factorial de ellos , si es posible.
+*\param pOperadorUno, es el primer numero el cual al final se realizara el factorial.
+*\param pOperadorDos, es el segundo numero el cual al final se realizara el factorial.
+*\param pResultadoFactorialPrimerOperador , es la variable donde se guardara el resultado del factorial del primer numero.
+*\param pResultadoFactorialSegundoOperador , es la variable donde se guardara el resultado del factorial del segundo numero.
+*\return retorna 0 si esta todo bien, retorna -1 , si el primer numero no se pudo hacer el factorial, retona -2 , si el segundo numero y el primero no se
+*pudieron hacer factorial,retorna -3 si el segundo numero no se pudo hacer el factorial.
+*/
 int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFactorialPrimerOperador, long* pResultadoFactorialSegundoOperador ){
     int retorno=0;
     int auxOperadorUno=*pOperadorUno;
@@ -97,6 +120,8 @@ int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFa
                 auxParaResultadoFactorial=1;
             }
         }
+    }else{
+        retorno=-1;
     }
     if(auxOperadorDos>0){
         for(int i=auxOperadorDos;i>=1;i--){
@@ -105,12 +130,27 @@ int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFa
                 *pResultadoFactorialSegundoOperador=auxParaResultadoFactorial;
             }
         }
+    }else if(auxOperadorDos<0 && retorno==-1){
+        retorno=-2;
+    }else{
+        retorno=-3;
     }
     return retorno;
 }
+/**
+*\brief le paso por parametro los 2 numeros , le pasamos tambien el resultado de la Suma , Resta , Multiplicacion , Division y los factoriales.
+*\param pOperadorUno, es el primer numero.
+*\param pOperadorDos, es el segundo numero.
+*\param pResultadoDeLaSuma, pasaremos el resultado de la Suma.
+*\param pResultadoDeLaResta, pasaremos el resultado de la Resta.
+*\param pResultadoDeLaDivision, pasaremos el resultado de la division si es que se realizo.
+*\param pResultadoDeLaMultiplicacion, pasaremos el resultado de la multiplicacion.
+*\param pResultadoDelFactorialPrimerOperador, pasaremos el resultado del factorial del primer numero.
+*\param pResultadoDelFactorialSegundoOperador, pasaremos el resultado del factorial del segundo numero.
+*\return retorna 0 si esta todo bien.
+*/
 int utn_listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDeLaSuma  , int* pResultadoDeLaResta, int* pResultadoDeLaDivision,int* pResultadoDeLaMultiplicacion,
                      long* pResultadoDelFactorialPrimerOperador ,long* pResultadoDelFactorialSegundoOperador){
-
 
     int retorno=0;
     printf("el resultado de la suma entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaSuma);
@@ -124,27 +164,25 @@ int utn_listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDe
         printf("el resultado de la multiplicacion entre %d y %d , es igual a 0 .\n",*pOperadorUno,*pOperadorDos);
     }else{
         printf("el resultado de la multiplicacion entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaMultiplicacion);
-
     }
     if(*pOperadorUno>0){
-        printf("el resultado del factorial %d , es igual a %ld .\n",*pOperadorUno,*pResultadoDelFactorialPrimerOperador);
+        printf("el resultado del factorial %d , es igual a %ld .\n\n",*pOperadorUno,*pResultadoDelFactorialPrimerOperador);
     }else{
-        printf("no se pudo realizar el factorial de %d .\n",*pOperadorUno);
+        printf("no se pudo realizar el factorial de %d .\n\n",*pOperadorUno);
     }
     if(*pOperadorDos>0){
-        printf("el resultado del factorial %d , es igual a %ld .\n",*pOperadorDos,*pResultadoDelFactorialSegundoOperador);
+        printf("el resultado del factorial %d , es igual a %ld .\n\n",*pOperadorDos,*pResultadoDelFactorialSegundoOperador);
     }else{
         printf("no se pudo realizar el factorial de %d .\n \n",*pOperadorDos);
     }
-
-
     return retorno;
 }
-
-
-
+/**
+*\brief lo que hace es mostrar  un menu , para las diferentes operaciones que querramos realizar,dentro de ella se encuentra la llamada a todas las demas funciones
+*\ luego se la llama al main. en el caso que no pasara ningun operador , los 2 operadores se inicializan en 0 por defecto.
+*\return retorna 0 si esta todo bien,
+*/
 void utn_showMenu(){
-    //variables
     int numeroDeOpcionIngresado;
     int operadorNumeroUno=0;
     int operadorNumeroDos=0;
@@ -155,7 +193,6 @@ void utn_showMenu(){
     long resultadoDelFactorialPrimerOperador;
     long resultadoDelFactorialSegundoOperador;
     int errorAlElegir=0;
-    //intro del menu
     do{
         if(utn_getNumero(&numeroDeOpcionIngresado,
                          "ingrese un numero para elegir una opcion.\n1.Ingrese primer operador.\n2.Ingrese segundo operador.\n3.calcular todas las funciones.\n4.Informar resultados.\n5.Salir",
