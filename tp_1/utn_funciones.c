@@ -1,11 +1,5 @@
-#include <stdio.h>
+#include <stdio_ext.h>
 #include <stdlib.h>
-
-//menu
-
-
-
-
 /**
 *\brief le paso por parametro un  numero que tome con la funcion getNumero y verifico si es un numero valido.
 *\param auxNumero , es el numero a evaluar si es correcto.
@@ -34,8 +28,7 @@ int utn_getNumero(int* pResultado,char* mensaje,char* mensajeError,int minimo,in
     int retorno=0;
     int auxNumero;
     do{
-        //__fpurge(stdin); CUANDO ESTE EN LINUX BORRAR LO DE ABAJO Y DEJAR ESTO
-        fflush( stdin );
+        __fpurge(stdin);
         printf("%s \n",mensaje);
         if(scanf("%d",&auxNumero)!=1 || utn_validarInt(auxNumero,minimo,maximo)!=0){
             system("clear");
@@ -43,11 +36,12 @@ int utn_getNumero(int* pResultado,char* mensaje,char* mensajeError,int minimo,in
             reintentos--;
         }else{
             *pResultado=auxNumero;
+            system("clear");
             break;
         }
         if(reintentos==0){
             system("clear");
-            printf("Pasaste el limite de intentos, ADIOS.");
+            printf("Pasaste el limite de intentos.Te devolveremos al menu para que elegir otra operacion.\n\n");
             retorno=-1;
         }
     }while(reintentos>0);
@@ -92,9 +86,11 @@ int utn_calcularMultiplicacion(int* pOperadorUno, int* pOperadorDos, int* pResul
 
 int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFactorialPrimerOperador, long* pResultadoFactorialSegundoOperador ){
     int retorno=0;
+    int auxOperadorUno=*pOperadorUno;
+    int auxOperadorDos=*pOperadorDos;
     long auxParaResultadoFactorial=1;
-    if(*pOperadorUno>0){
-        for(int i=*pOperadorUno;i>=1;i--){
+    if(auxOperadorUno>0){
+        for(int i=auxOperadorUno;i>=1;i--){
             auxParaResultadoFactorial=auxParaResultadoFactorial*i;
             if(i==1){
                 *pResultadoFactorialPrimerOperador=auxParaResultadoFactorial;
@@ -102,8 +98,8 @@ int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFa
             }
         }
     }
-    if(*pOperadorDos>0){
-        for(int i=*pOperadorDos;i>=1;i--){
+    if(auxOperadorDos>0){
+        for(int i=auxOperadorDos;i>=1;i--){
             auxParaResultadoFactorial=auxParaResultadoFactorial*i;
             if(i==1){
                 *pResultadoFactorialSegundoOperador=auxParaResultadoFactorial;
@@ -114,24 +110,31 @@ int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFa
 }
 int utn_listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDeLaSuma  , int* pResultadoDeLaResta, int* pResultadoDeLaDivision,int* pResultadoDeLaMultiplicacion,
                      long* pResultadoDelFactorialPrimerOperador ,long* pResultadoDelFactorialSegundoOperador){
+
+
     int retorno=0;
-    printf("el resultado de la suma entre %d y %d , es igual a %d .",*pOperadorUno,*pOperadorDos,*pResultadoDeLaSuma);
-    printf("el resultado de la resta entre %d y %d , es igual a %d .",*pOperadorUno,*pOperadorDos,*pResultadoDeLaResta);
+    printf("el resultado de la suma entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaSuma);
+    printf("el resultado de la resta entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaResta);
     if(*pOperadorDos!=0){
-        printf("el resultado de la division entre %d y %d , es igual a %d .",*pOperadorUno,*pOperadorDos,*pResultadoDeLaDivision);
+        printf("el resultado de la division entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaDivision);
     }else{
-        printf("no se pudo realizar la division. el segundo operador es 0 .");
+        printf("no se pudo realizar la division. el segundo operador es 0 .\n");
     }
-    printf("el resultado de la multiplicacion entre %d y %d , es igual a %d .",*pOperadorUno,*pOperadorDos,*pResultadoDeLaMultiplicacion);
-    if(*pOperadorUno>0){
-        printf("el resultado del factorial %d , es igual a %ld .",*pOperadorUno,*pResultadoDelFactorialPrimerOperador);
+    if((*pOperadorUno==0 && *pOperadorDos==0)||(*pOperadorUno==0 || *pOperadorDos==0)){
+        printf("el resultado de la multiplicacion entre %d y %d , es igual a 0 .\n",*pOperadorUno,*pOperadorDos);
     }else{
-        printf("no se pudo realizar el factorial de %d .",*pOperadorUno);
+        printf("el resultado de la multiplicacion entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaMultiplicacion);
+
+    }
+    if(*pOperadorUno>0){
+        printf("el resultado del factorial %d , es igual a %ld .\n",*pOperadorUno,*pResultadoDelFactorialPrimerOperador);
+    }else{
+        printf("no se pudo realizar el factorial de %d .\n",*pOperadorUno);
     }
     if(*pOperadorDos>0){
-        printf("el resultado del factorial %d , es igual a %ld .",*pOperadorDos,*pResultadoDelFactorialSegundoOperador);
+        printf("el resultado del factorial %d , es igual a %ld .\n",*pOperadorDos,*pResultadoDelFactorialSegundoOperador);
     }else{
-        printf("no se pudo realizar el factorial de %d .",*pOperadorDos);
+        printf("no se pudo realizar el factorial de %d .\n \n",*pOperadorDos);
     }
 
 
@@ -143,8 +146,8 @@ int utn_listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDe
 void utn_showMenu(){
     //variables
     int numeroDeOpcionIngresado;
-    int operadorNumeroUno;
-    int operadorNumeroDos;
+    int operadorNumeroUno=0;
+    int operadorNumeroDos=0;
     int resultadoDeLaSuma;
     int resultadoDeLaResta;
     int resultadoDeLaDivision;
@@ -156,24 +159,40 @@ void utn_showMenu(){
     do{
         if(utn_getNumero(&numeroDeOpcionIngresado,
                          "ingrese un numero para elegir una opcion.\n1.Ingrese primer operador.\n2.Ingrese segundo operador.\n3.calcular todas las funciones.\n4.Informar resultados.\n5.Salir",
-                         "Error,ingrese un numero correcto",1,5,3)==0){
+                         "Error,ingrese un numero correcto",0,6,3)==0){
                              switch(numeroDeOpcionIngresado){
                                 case 1:
                                     system("clear");
-                                    utn_getNumero(&operadorNumeroUno,"Ingrese el 1° operador","Error,ingrese un numero correcto",0,999,3);
+                                    utn_getNumero(&operadorNumeroUno,"Ingrese el primer operador","Error,ingrese un numero correcto",0,999,3);
                                     break;
                                 case 2:
                                     system("clear");
-                                    utn_getNumero(&operadorNumeroDos,"Ingrese el 2° operador","Error,ingrese un numero correcto",0,999,3);
+                                    utn_getNumero(&operadorNumeroDos,"Ingrese el segundo operador","Error,ingrese un numero correcto",0,999,3);
                                     break;
                                 case 3:
-                                    system("clear");
-                                    utn_calcularSuma(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaSuma);
-                                    utn_calcularResta(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaResta);
-                                    utn_calcularDivision(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaDivision);
-                                    utn_calcularMultiplicacion(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaMultiplicacion);
-                                    utn_calcularFactorial(&operadorNumeroUno,&operadorNumeroDos,&resultadoDelFactorialPrimerOperador,&resultadoDelFactorialSegundoOperador);
-                                    break;
+                                    if(operadorNumeroUno==0 && operadorNumeroDos==0 ){
+                                        system("clear");
+                                        utn_calcularSuma(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaSuma);
+                                        utn_calcularResta(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaResta);
+                                        utn_calcularMultiplicacion(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaMultiplicacion);
+                                        break;
+                                    }else if(operadorNumeroUno==0||operadorNumeroDos==0){
+                                        system("clear");
+                                        utn_calcularSuma(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaSuma);
+                                        utn_calcularResta(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaResta);
+                                        utn_calcularMultiplicacion(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaMultiplicacion);
+                                        utn_calcularFactorial(&operadorNumeroUno,&operadorNumeroDos,&resultadoDelFactorialPrimerOperador,&resultadoDelFactorialSegundoOperador);
+                                        break;
+                                    }
+                                    else{
+                                        system("clear");
+                                        utn_calcularSuma(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaSuma);
+                                        utn_calcularResta(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaResta);
+                                        utn_calcularDivision(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaDivision);
+                                        utn_calcularMultiplicacion(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaMultiplicacion);
+                                        utn_calcularFactorial(&operadorNumeroUno,&operadorNumeroDos,&resultadoDelFactorialPrimerOperador,&resultadoDelFactorialSegundoOperador);
+                                        break;
+                                    }
                                 case 4:
                                     system("clear");
                                     utn_listarResultados(&operadorNumeroUno,&operadorNumeroDos,&resultadoDeLaSuma,&resultadoDeLaResta,
