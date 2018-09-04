@@ -21,3 +21,14 @@
 	<stdio_ext.h>
 	<stdlib.h>
 
+1536085874 source:/home/emmanuel/tp_laboratorio_1/tp_1/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"utn_funciones.h"
+
+1536087694 /home/emmanuel/tp_laboratorio_1/tp_1/utn_funciones.h
+
+1536088053 source:/home/emmanuel/tp_laboratorio_1/tp_1/utn_funciones.c
+	<stdio_ext.h>
+	<stdlib.h>
+

@@ -78,10 +78,10 @@ int utn_calcularResta(int* pOperadorUno, int* pOperadorDos, int* pResultadoResta
 *\param pResultadoDivision , es la variable donde se guardara el resultado de la division final.
 *\return retorna 0 si esta todo bien , si retorna -1 es porque el segundo operador es 0.
 */
-int utn_calcularDivision(int* pOperadorUno, int* pOperadorDos, int* pResultadoDivision ){
+int utn_calcularDivision(int* pOperadorUno, int* pOperadorDos, float* pResultadoDivision ){
     int retorno=-1;
     if(pOperadorDos!=0){
-        *pResultadoDivision=(*pOperadorUno) / (*pOperadorDos);
+        *pResultadoDivision=(float)(*pOperadorUno) / (*pOperadorDos);
         retorno=0;
     }
     return retorno;
@@ -149,14 +149,14 @@ int utn_calcularFactorial(int* pOperadorUno,int* pOperadorDos,long* pResultadoFa
 *\param pResultadoDelFactorialSegundoOperador, pasaremos el resultado del factorial del segundo numero.
 *\return retorna 0 si esta todo bien.
 */
-int utn_listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDeLaSuma  , int* pResultadoDeLaResta, int* pResultadoDeLaDivision,int* pResultadoDeLaMultiplicacion,
+int utn_listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDeLaSuma  , int* pResultadoDeLaResta, float* pResultadoDeLaDivision,int* pResultadoDeLaMultiplicacion,
                      long* pResultadoDelFactorialPrimerOperador ,long* pResultadoDelFactorialSegundoOperador){
 
     int retorno=0;
     printf("el resultado de la suma entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaSuma);
     printf("el resultado de la resta entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaResta);
     if(*pOperadorDos!=0){
-        printf("el resultado de la division entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaDivision);
+        printf("el resultado de la division entre %d y %d , es igual a %.2f .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaDivision);
     }else{
         printf("no se pudo realizar la division. el segundo operador es 0 .\n");
     }
@@ -166,9 +166,9 @@ int utn_listarResultados(int* pOperadorUno, int* pOperadorDos, int* pResultadoDe
         printf("el resultado de la multiplicacion entre %d y %d , es igual a %d .\n",*pOperadorUno,*pOperadorDos,*pResultadoDeLaMultiplicacion);
     }
     if(*pOperadorUno>0){
-        printf("el resultado del factorial %d , es igual a %ld .\n\n",*pOperadorUno,*pResultadoDelFactorialPrimerOperador);
+        printf("el resultado del factorial %d , es igual a %ld .\n",*pOperadorUno,*pResultadoDelFactorialPrimerOperador);
     }else{
-        printf("no se pudo realizar el factorial de %d .\n\n",*pOperadorUno);
+        printf("no se pudo realizar el factorial de %d .\n",*pOperadorUno);
     }
     if(*pOperadorDos>0){
         printf("el resultado del factorial %d , es igual a %ld .\n\n",*pOperadorDos,*pResultadoDelFactorialSegundoOperador);
@@ -188,7 +188,7 @@ void utn_showMenu(){
     int operadorNumeroDos=0;
     int resultadoDeLaSuma;
     int resultadoDeLaResta;
-    int resultadoDeLaDivision;
+    float resultadoDeLaDivision;
     int resultadoDeLaMultiplicacion;
     long resultadoDelFactorialPrimerOperador;
     long resultadoDelFactorialSegundoOperador;
