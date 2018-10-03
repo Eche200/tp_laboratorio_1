@@ -44,41 +44,55 @@ int main()
                 }
                 break;
             case 2:
-                system("clear");
-                devolucion = UTN_modificarEmployee(arrayDeEmployee,0,CANTIDADDEMPLEADOS,0);//se me desconfiguro el coeblock , no reconoce el valor de retornod e fgets ni de system , no puedo probar cosas, asi que no puedo arreglar el tema de tomar por teclado... el ultimo parametro es el que cambia que son los ID
-                if(devolucion == 0)
-                {
-                    printf("los datos se modificaron correctamente \n\n");
-                }else
+                if(arrayDeEmployee[0].id == 1)
                 {
                     system("clear");
-                    printf("ERROR! , no se pudo modificar la usuario\n\n");
-                }
-            case 3:
-                system("clear");
-                devolucion = UTN_removeEmployee(arrayDeEmployee,0,CANTIDADDEMPLEADOS,0);//se me desconfiguro el coeblock , no reconoce el valor de retornod e fgets ni de system , no puedo probar cosas, asi que no puedo arreglar el tema de tomar por teclado... el ultimo parametro es el que cambia que son los ID
-                if(devolucion == 0)
-                {
-                    printf("el usuario fue dado de baja.\n\n");
+                    devolucion = UTN_modificarEmployee(arrayDeEmployee,0,CANTIDADDEMPLEADOS,1);//se me desconfiguro el coeblock , no reconoce el valor de retornod e fgets ni de system , no puedo probar cosas, asi que no puedo arreglar el tema de tomar por teclado... el ultimo parametro es el que cambia que son los ID
+                    if(devolucion == 0)
+                    {
+                        printf("los datos se modificaron correctamente \n\n");
+                    }else
+                    {
+                        system("clear");
+                        printf("ERROR! , no se pudo modificar la usuario\n\n");
+                    }
 
-                }else
+                }
+                break;
+            case 3:
+                if(arrayDeEmployee[0].id == 1)
                 {
                     system("clear");
-                    printf("ERROR al dar de baja al usuario.\n\n");
+                    devolucion = UTN_removeEmployee(arrayDeEmployee,0,CANTIDADDEMPLEADOS,1);//se me desconfiguro el coeblock , no reconoce el valor de retornod e fgets ni de system , no puedo probar cosas, asi que no puedo arreglar el tema de tomar por teclado... el ultimo parametro es el que cambia que son los ID
+                    if(devolucion == 0)
+                    {
+                        printf("el usuario fue dado de baja.\n\n");
+
+                    }else
+                    {
+                        system("clear");
+                        printf("ERROR al dar de baja al usuario.\n\n");
+                    }
                 }
+                break;
 
             case 4:
-                system("clear");
-                devolucion = UTN_sortEmployees(arrayDeEmployee,CANTIDADDEMPLEADOS,0);
-                if(devolucion == 0)
+                if(arrayDeEmployee[0].id == 1)
                 {
-                    printf("\n\n\n\n\n\n");
-                    devolucion = UTN_imprimirTotalPromedioYEmployeeQueSuperanSalarioPromedio(arrayDeEmployee,CANTIDADDEMPLEADOS,0);
-                    printf("\n\n\n\n\n\n");
+                    system("clear");
+                    devolucion = UTN_sortEmployees(arrayDeEmployee,CANTIDADDEMPLEADOS,0);
+                    if(devolucion == 0)
+                    {
+                        printf("\n\n\n\n\n\n");
+                        devolucion = UTN_imprimirTotalPromedioYEmployeeQueSuperanSalarioPromedio(arrayDeEmployee,CANTIDADDEMPLEADOS,0);
+                        printf("\n\n\n\n\n\n");
 
+                    }
                 }
+                break;
             default:
                 printf( "opcion incorrecta");
+                break;
 
             }
 
@@ -101,6 +115,12 @@ int main()
         }
         system("clear");
     }while(continuar == 1);
+    if(arrayDeEmployee[0].isEmpty == 0){
+
+    printf("%s\n\n",arrayDeEmployee[0].nombre);
+    printf("\n%d\n", arrayDeEmployee[0].isEmpty);
+    printf("\n%d\n", arrayDeEmployee[0].id);
+    }
 
     printf("ADIOS , BUEN DIA\n\n\n");
 

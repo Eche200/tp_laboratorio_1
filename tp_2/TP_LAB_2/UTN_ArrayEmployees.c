@@ -67,8 +67,9 @@ int UTN_removeEmployee(Employee arrayDeEmployee[], int indice , int limiteDeArra
 {
     int retorno = -1;
     int i;
-    if(arrayDeEmployee != NULL && limiteDeArrayDeEmployee > 0 && idDePersonaABorrar)
+    if(arrayDeEmployee != NULL && limiteDeArrayDeEmployee > 0 && indice < limiteDeArrayDeEmployee  && idDePersonaABorrar > 0)
     {
+
         for( i = indice; i < limiteDeArrayDeEmployee ; i++)
         {
             if(arrayDeEmployee[i].id == idDePersonaABorrar && arrayDeEmployee[i].isEmpty == 0)
@@ -107,13 +108,13 @@ int UTN_modificarEmployee(Employee arrayDeEmployee[],int indice , int limiteDeAr
     char bufferParaApellido[CANTIDADPARABUFFER];
     char bufferParaSueldo[CANTIDADPARABUFFER];
     char bufferParaSector[CANTIDADPARABUFFER];
-    if(arrayDeEmployee != NULL && limiteDeArrayDeEmployee > 0 && idDePersonaAModificar > 0)
+    if(arrayDeEmployee != NULL && limiteDeArrayDeEmployee > 0 && indice < limiteDeArrayDeEmployee && idDePersonaAModificar > 0)
     {
         for( i = indice; i < limiteDeArrayDeEmployee ; i++)
         {
             if(arrayDeEmployee[i].id == idDePersonaAModificar && arrayDeEmployee[i].isEmpty == 0)
             {
-                printf("que dato desea modificar?\n1-Nombre.\n2-Apellido.\n3-Sueldo.\n4-Sector.");
+                printf("que dato desea modificar?\n1-Nombre.\n2-Apellido.\n3-Sueldo.\n4-Sector.\n");
                 if(utn_getString(opcion,2) == 0 && utn_isValidInt(opcion ,2 ) == 1)
                 {
                     opcionDeModificacion = atoi(opcion);
@@ -121,7 +122,7 @@ int UTN_modificarEmployee(Employee arrayDeEmployee[],int indice , int limiteDeAr
                 switch(opcionDeModificacion)
                 {
                 case 1:
-                    printf("\ningrese el nuevo nombre del empleado");
+                    printf("\ningrese el nuevo nombre del empleado\n");
                     if(utn_getString(bufferParaNombre , CANTIDADPARABUFFER) == 0 && utn_isValidNombre(bufferParaNombre , CANTIDADPARABUFFER) == 1 )
                     {
                         strncpy(arrayDeEmployee[i].nombre , bufferParaNombre , 51);
@@ -133,7 +134,7 @@ int UTN_modificarEmployee(Employee arrayDeEmployee[],int indice , int limiteDeAr
                         break;
                     }
                 case 2:
-                    printf("\ningrese el nuevo apellido del empleado");
+                    printf("\ningrese el nuevo apellido del empleado\n");
                     if(utn_getString(bufferParaApellido , CANTIDADPARABUFFER) == 0 && utn_isValidNombre(bufferParaApellido , CANTIDADPARABUFFER) == 1 )
                     {
                         strncpy(arrayDeEmployee[i].apellido , bufferParaApellido , 51);
@@ -145,7 +146,7 @@ int UTN_modificarEmployee(Employee arrayDeEmployee[],int indice , int limiteDeAr
                         break;
                     }
                 case 3:
-                    printf("\ningrese el nuevo sueldo del empleado");
+                    printf("\ningrese el nuevo sueldo del empleado\n");
                     if(utn_getString(bufferParaSueldo , CANTIDADPARABUFFER) == 0 && utn_isValidFloat(bufferParaSueldo , CANTIDADPARABUFFER) == 1 )
                     {
                         arrayDeEmployee[i].sueldo = atof(bufferParaSueldo);
@@ -157,7 +158,7 @@ int UTN_modificarEmployee(Employee arrayDeEmployee[],int indice , int limiteDeAr
                         break;
                     }
                 case 4:
-                    printf("\ningrese el nuevo sector del empleado");
+                    printf("\ningrese el nuevo sector del empleado\n");
                     if(utn_getString(bufferParaSector,CANTIDADPARABUFFER) == 0 && utn_isValidInt(bufferParaSector ,CANTIDADPARABUFFER ) == 1)
                     {
                         arrayDeEmployee[i].sector = atoi(bufferParaSector);
@@ -169,7 +170,7 @@ int UTN_modificarEmployee(Employee arrayDeEmployee[],int indice , int limiteDeAr
                         break;
                     }
                 default:
-                    printf("te equivocaste de opcion");
+                    printf("te equivocaste de opcion\n");
                     retorno = 0;
                     break;
                 }
@@ -198,7 +199,7 @@ int UTN_initEmployees(Employee arrayDeEmployee[],int indice, int limiteDeArrayDe
     {
         for(i = indice; i < limiteDeArrayDeEmployee ; i++)
         {
-            arrayDeEmployee[i].isEmpty=1;
+            arrayDeEmployee[i].isEmpty = 1;
             arrayDeEmployee[i].id = -1;
         }
         retorno=0;
@@ -222,6 +223,7 @@ lastName,char* salary,char* sector)
 {
     int retorno = -1;
     int i;
+    __fpurge(stdin);
 
     if(arrayDeEmployee != NULL && limiteDeArrayDeEmployee > 0)
     {
@@ -253,12 +255,13 @@ lastName,char* salary,char* sector)
                                 arrayDeEmployee[i].sueldo = atof(salary);
                                 arrayDeEmployee[i].sector = atoi(sector);
                                 retorno = 0;
+                                break;
                             }
                         }
                     }
                 }
             }
-            break;
+
         }
     }
     return retorno;
@@ -302,7 +305,7 @@ int UTN_sortEmployees(Employee arrayDeEmployee[], int limite , int indice)
     for ( i = indice ; i < limite ; i++)
     {
         posicion = i;
-        strncpy(auxDeNombreDelEmployee, arrayDeEmployee[i].nombre , CANTIADDECARACTERESMAXIMOSPARANOMBRE);
+        strncpy(auxDeNombreDelEmployee, arrayDeEmployee[i].nombre , 51);
         while( i > 0 && strcmp(auxDeNombreDelEmployee, arrayDeEmployee[posicion - 1].nombre)<0)
         {
             strncpy(arrayDeEmployee[posicion].nombre , arrayDeEmployee[posicion - 1].nombre, 51);
