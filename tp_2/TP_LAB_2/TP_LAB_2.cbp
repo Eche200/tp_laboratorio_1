@@ -35,10 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Funciones.h" />
-		<Unit filename="UTN_empleados.c">
+		<Unit filename="UTN_ArrayEmployees.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="UTN_empleados.h" />
+		<Unit filename="UTN_ArrayEmployees.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
